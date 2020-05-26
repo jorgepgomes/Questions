@@ -1,0 +1,1 @@
+mongorestore -d users -c users /backup/users/users.bson
