@@ -1,0 +1,11 @@
+{
+    "server": {
+        "mongodb": {
+          "hosts": "localhost:27017",
+          "database": "db",
+          "username": "",
+          "password": "",
+          "collection": "questions"
+        }
+    }
+}
