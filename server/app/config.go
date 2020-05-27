@@ -7,13 +7,13 @@ import (
 	"github.com/jorgepgomes/Questions/server/model"
 )
 
-func (a *App) ReadConfig() model.ConfigServer {
+
+
+func ReadConfig() {
 	file, _ := ioutil.ReadFile("../config.json")
 
-	data := model.ConfigServer{}
+	data := model.Config{}
 
 	_ = json.Unmarshal([]byte(file), &data)
-
-	return data
-
+	model.Cfg = &data
 }

@@ -1,10 +1,17 @@
 package model
 
-type ConfigServer struct {
-	ConfigMongoDB ConfigMongoDB
+var Cfg *Config = &Config{}
+
+type Config struct {
+	Server server `json:"server"`
 }
 
-type ConfigMongoDB struct {
+type server struct {
+	Port    string `json:"port"`
+	MongoDB mongo  `json:"mongodb"`
+}
+
+type mongo struct {
 	Hosts      string `json:"hosts"`
 	Database   string `json:"database"`
 	Username   string `json:"username"`

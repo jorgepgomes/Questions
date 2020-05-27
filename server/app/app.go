@@ -1,23 +1,27 @@
 package app
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/jorgepgomes/Questions/server/nosql"
+	"gopkg.in/mgo.v2"
+)
 
 type App struct {
-	configFile string
 }
 
-type Option func(a *App)
-
-func ConfigFile(file string) Option {
-	return func(a *App) {
-		a.configFile = file
-	}
+type MongoStore struct {
+	session *mgo.Session
 }
 
-func (a *App) InitServer() {
-	fmt.Println("<<< INICIANDO >>>")
+var mongoStore = MongoStore{}
 
-	x := a.ReadConfig()
+func InitMongo() {
+	fmt.Println("Init ...")
 
-	fmt.Println("CONFIG >>>", x)
+	ReadConfig()
+
+	fmt.Println("Init MongoDB")
+	session := nosql.InitialiseMongo()
+	mongoStore.session = session
 }

@@ -1,13 +1,23 @@
 package nosql
 
-func initialiseMongo() (session *mgo.Session) {
+import (
+	"time"
+
+	"github.com/jorgepgomes/Questions/server/model"
+	"gopkg.in/mgo.v2"
+)
+
+func InitialiseMongo() (session *mgo.Session) {
+
+	config := model.Cfg
+	mongo := config.Server.MongoDB
 
 	info := &mgo.DialInfo{
-		Addrs:    []string{hosts},
+		Addrs:    []string{mongo.Hosts},
 		Timeout:  60 * time.Second,
-		Database: database,
-		Username: username,
-		Password: password,
+		Database: mongo.Database,
+		Username: mongo.Username,
+		Password: mongo.Password,
 	}
 
 	session, err := mgo.DialWithInfo(info)
