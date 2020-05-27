@@ -1,4 +1,4 @@
-package controller
+package controllers
 
 import (
 	"fmt"
@@ -7,9 +7,6 @@ import (
 	"github.com/jorgepgomes/Questions/server/nosql"
 	"gopkg.in/mgo.v2"
 )
-
-type App struct {
-}
 
 type MongoStore struct {
 	session *mgo.Session

@@ -1,10 +1,13 @@
 package main
 
-import "github.com/jorgepgomes/Questions/server/controller"
+import (
+	"github.com/jorgepgomes/Questions/server/controllers"
+	"github.com/jorgepgomes/Questions/server/routes"
+)
 
 func main() {
 
-	controller.InitMongo()
-	controller.InitRoutes()
+	controllers.InitMongo()
+	routes.InitRoutes()
 
 }
