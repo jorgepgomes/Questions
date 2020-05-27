@@ -3,8 +3,6 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
-
-	"github.com/tradersclub/TCSchool/model"
 )
 
 var Cfg *Config = &Config{}
@@ -29,8 +27,8 @@ type mongo struct {
 func ReadConfig() {
 	file, _ := ioutil.ReadFile("../config.json")
 
-	data := model.Config{}
+	data := Config{}
 
 	_ = json.Unmarshal([]byte(file), &data)
-	model.Cfg = &data
+	Cfg = &data
 }

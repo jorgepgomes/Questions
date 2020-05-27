@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -9,12 +10,10 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-func (a *App) JobsGetHandler() string {
+func JobsGetHandler(w http.ResponseWriter, r *http.Request) {
 
-	config := model.Cfg
-	mongo := config.Server.MongoDB
-	database := mongo.Database
-	collection := mongo.Collection
+	database := model.Cfg.Server.MongoDB.Database
+	collection := model.Cfg.Server.MongoDB.Collection
 
 	col := mongoStore.session.DB(database).C(collection)
 
@@ -24,16 +23,14 @@ func (a *App) JobsGetHandler() string {
 	if err != nil {
 		panic(err)
 	}
-	return string(jsonString)
+	fmt.Fprint(w, string(jsonString))
 
 }
 
 func JobsPostHandler(w http.ResponseWriter, r *http.Request) {
 
-	config := model.Cfg
-	mongo := config.Server.MongoDB
-	database := mongo.Database
-	collection := mongo.Collection
+	database := model.Cfg.Server.MongoDB.Database
+	collection := model.Cfg.Server.MongoDB.Collection
 
 	col := mongoStore.session.DB(database).C(collection)
 

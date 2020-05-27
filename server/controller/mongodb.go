@@ -1,10 +1,9 @@
 package controller
 
-package app
-
 import (
 	"fmt"
 
+	"github.com/jorgepgomes/Questions/server/model"
 	"github.com/jorgepgomes/Questions/server/nosql"
 	"gopkg.in/mgo.v2"
 )
