@@ -1,5 +1,12 @@
 package model
 
+import (
+	"encoding/json"
+	"io/ioutil"
+
+	"github.com/tradersclub/TCSchool/model"
+)
+
 var Cfg *Config = &Config{}
 
 type Config struct {
@@ -17,4 +24,13 @@ type mongo struct {
 	Username   string `json:"username"`
 	Password   string `json:"password"`
 	Collection string `json:"collection"`
+}
+
+func ReadConfig() {
+	file, _ := ioutil.ReadFile("../config.json")
+
+	data := model.Config{}
+
+	_ = json.Unmarshal([]byte(file), &data)
+	model.Cfg = &data
 }
