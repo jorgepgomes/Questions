@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import server from './services/server'
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-function App() {
+import Routes from './routes'
 
-  useEffect(() => {
-    async function getList() {
-      let res = await server.ListQuestions();
-    }
-    getList()
-  }, [])
-
+export default function App() {
   return (
-    <div className="App">
-      HELLO WORLD 1
-    </div>
+    <Router>
+          <Routes/>
+    </Router>
   );
 }
-
-export default App;

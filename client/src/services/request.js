@@ -10,7 +10,6 @@ class Request {
             base_url[base_url.length - 1] === "/"
                 ? base_url.substring(0, base_url.length - 2)
                 : base_url;
-
     };
 
     getBaseUrl = () => {
@@ -28,15 +27,10 @@ class Request {
         return data || {};
     };
 
-    request = (method = "get", url, data) => {
+    get = (url) => {
         return new Promise(async (resolve, reject) => {
             axios
-                .request({
-                    method,
-                    url: this.makeUrl(url),
-                    data: this.makeData(data),
-                })
-                .then((resp) => {
+                .get(this.makeUrl(url)).then((resp) => {
                     resolve(resp);
                 })
                 .catch((err) => {
@@ -45,12 +39,16 @@ class Request {
         });
     };
 
-    get = (url, data) => {
-        return this.request("get", url, data);
-    };
-
     post = (url, data) => {
-        return this.request("post", url, data);
+        return new Promise(async (resolve, reject) => {
+            axios
+                .post(this.makeUrl(url), data).then((resp) => {
+                    resolve(resp);
+                })
+                .catch((err) => {
+                    reject(err);
+                });
+        });
     };
 }
 
