@@ -1,0 +1,7 @@
+{
+    "client": {
+        "url": {
+          "server": "http://localhost:3050"
+        }        
+    }
+}

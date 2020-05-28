@@ -12,8 +12,14 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-func CreateQuestion(w http.ResponseWriter, r *http.Request) {
+func setupResponse(w *http.ResponseWriter, r *http.Request) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+}
 
+func CreateQuestion(w http.ResponseWriter, r *http.Request) {
+	// setupResponse(&w, r)
 	body := getBody(r)
 
 	count := totalQuestions()
@@ -34,7 +40,7 @@ func CreateQuestion(w http.ResponseWriter, r *http.Request) {
 }
 
 func AnswerQuestion(w http.ResponseWriter, r *http.Request) {
-
+	// setupResponse(&w, r)
 	body := getBody(r)
 	id := getIDParams(r)
 	question := findOneQuestion(id)
@@ -58,6 +64,7 @@ func AnswerQuestion(w http.ResponseWriter, r *http.Request) {
 }
 
 func ListQuestions(w http.ResponseWriter, r *http.Request) {
+	// setupResponse(&w, r)
 	search := getSearchParam(r)
 
 	result := findQuestions(search)
@@ -67,6 +74,7 @@ func ListQuestions(w http.ResponseWriter, r *http.Request) {
 }
 
 func Like(w http.ResponseWriter, r *http.Request) {
+	// setupResponse(&w, r)
 	body := getBody(r)
 
 	var like model.Like
