@@ -2,6 +2,7 @@ package model
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 )
 
@@ -25,7 +26,9 @@ type mongo struct {
 }
 
 func ReadConfig() {
-	file, _ := ioutil.ReadFile("../config.json")
+	file, _ := ioutil.ReadFile("./config.json")
+
+	fmt.Println("file >> ", file)
 
 	data := Config{}
 
