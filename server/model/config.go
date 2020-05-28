@@ -26,7 +26,7 @@ type mongo struct {
 }
 
 func ReadConfig() {
-	file, _ := ioutil.ReadFile("./config.json")
+	file, _ := ioutil.ReadFile("server.json")
 
 	fmt.Println("file >> ", file)
 
