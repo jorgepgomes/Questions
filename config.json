@@ -6,7 +6,7 @@
           "database": "db",
           "username": "",
           "password": "",
-          "collection": "jobs"
+          "collection": "questions"
         }
     }
 }

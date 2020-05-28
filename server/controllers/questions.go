@@ -2,102 +2,131 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
+	"strconv"
+	"time"
 
 	"github.com/jorgepgomes/Questions/server/model"
 	"gopkg.in/mgo.v2/bson"
 )
 
-func JobsGetHandler(w http.ResponseWriter, r *http.Request) {
+func CreateQuestion(w http.ResponseWriter, r *http.Request) {
 
-	database := model.Cfg.Server.MongoDB.Database
-	collection := model.Cfg.Server.MongoDB.Collection
+	body := getBody(r)
 
-	col := mongoStore.session.DB(database).C(collection)
+	count := totalQuestions()
 
-	// results := []model.Job{}
+	id := generateID(count)
 
-	// ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	var question model.Questions
+	_ = json.Unmarshal(body, &question)
 
-	x := col.Find(bson.M{})
-	fmt.Println(">>>> ", x)
-	// col.Find(bson.M{"title": bson.RegEx{"", ""}}).All(&results)
-	// jsonString, err := json.Marshal(results)
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// fmt.Println(">>> ", string(jsonString))
-	// fmt.Fprint(w, string(jsonString))
+	question.Id = id
+	question.Date = dateNow()
 
+	response := insertQuestion(question)
+
+	w.WriteHeader(response.Code)
+	w.Write([]byte(model.ToJson(response)))
 }
 
-func Add(w http.ResponseWriter, r *http.Request) {
+func AnswerQuestion(w http.ResponseWriter, r *http.Request) {
 
-	database := model.Cfg.Server.MongoDB.Database
-	collection := model.Cfg.Server.MongoDB.Collection
+	body := getBody(r)
+	id := getIDParams(r)
+	question := findOneQuestion(id)
+	idAnswer := generateID(len(question.Answers))
 
-	col := mongoStore.session.DB(database).C(collection)
-	// col := session.DB(database).C(collection)
-
-	err := col.Insert(&model.Job{"DevOps Engineer", "Should be familiar with Jenkins Pipeline", "Company XYZ", "$10,000"},
-		&model.Job{"Senior Software Engineer", "Should be familiar with golang", "Company XYZ", "$12,000"})
-
+	var answer model.Answers
+	err := json.Unmarshal(body, &answer)
 	if err != nil {
-		log.Fatal(err)
+		http.Error(w, err.Error(), 500)
+		return
 	}
 
+	answer.Id = idAnswer
+	answer.Date = dateNow()
+
+	response := pushAnswer(id, answer)
+
+	w.WriteHeader(response.Code)
+	w.Write([]byte(model.ToJson(response)))
+}
+
+func findOneQuestion(id int) *model.Questions {
+	col := mongoStore.session.DB(model.Cfg.Server.MongoDB.Database).C(model.Cfg.Server.MongoDB.Collection)
+	var result model.Questions
+	err := col.Find(bson.M{"id": id}).One(&result)
+	if err != nil {
+		return nil
+	}
+	return &result
+}
+
+func pushAnswer(id int, answer model.Answers) *model.Response {
+	response := messageResponse(200, "Pergunta respondida com sucesso")
+	col := mongoStore.session.DB(model.Cfg.Server.MongoDB.Database).C(model.Cfg.Server.MongoDB.Collection)
+	change := bson.M{"$push": bson.M{"answers": answer}}
+	err := col.Update(bson.M{"id": id}, change)
+	if err != nil {
+		response = messageResponse(400, "Ocorreu um erro ao salvar sua resposta")
+	}
+	return response
+}
+
+func insertQuestion(question model.Questions) *model.Response {
+	response := messageResponse(200, "Pergunta criada com sucesso")
+	col := mongoStore.session.DB(model.Cfg.Server.MongoDB.Database).C(model.Cfg.Server.MongoDB.Collection)
+	err := col.Insert(question)
+	if err != nil {
+		response = messageResponse(200, "Ocorreu um erro ao criar sua pergunta")
+	}
+	return response
+}
+
+func generateID(position int) int {
+	if position > 0 {
+		position = position + 1
+	} else {
+		position = 1
+	}
+	return position
+}
+
+func getBody(r *http.Request) []byte {
+	body, err := ioutil.ReadAll(r.Body)
+	defer r.Body.Close()
+	if err != nil {
+		return nil
+	}
+	return body
+}
+
+func getIDParams(r *http.Request) int {
+	questionID := r.URL.Query()["id"]
+	id, _ := strconv.Atoi(questionID[0])
+	return id
+}
+
+func dateNow() int64 {
+	dateNow := time.Now().Unix() * 1000
+	return dateNow
+}
+
+func messageResponse(status int, message string) *model.Response {
+	response := &model.Response{
+		Code:    status,
+		Message: message,
+	}
+	return response
+}
+
+func totalQuestions() int {
+	col := mongoStore.session.DB(model.Cfg.Server.MongoDB.Database).C(model.Cfg.Server.MongoDB.Collection)
 	count, err := col.Count()
 	if err != nil {
 		panic(err)
 	}
-	res := fmt.Sprintf("Messages count: %d", count)
-
-	fmt.Fprint(w, res)
-
-}
-
-func JobsPostHandler(w http.ResponseWriter, r *http.Request) {
-
-	database := model.Cfg.Server.MongoDB.Database
-	collection := model.Cfg.Server.MongoDB.Collection
-
-	col := mongoStore.session.DB(database).C(collection)
-
-	//Retrieve body from http request
-	b, err := ioutil.ReadAll(r.Body)
-	defer r.Body.Close()
-	if err != nil {
-		panic(err)
-	}
-
-	//Save data into Job struct
-	var _job model.Job
-	err = json.Unmarshal(b, &_job)
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
-
-	//Insert job into MongoDB
-	err = col.Insert(_job)
-	if err != nil {
-		panic(err)
-	}
-
-	//Convert job struct into json
-	jsonString, err := json.Marshal(_job)
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
-
-	//Set content-type http header
-	w.Header().Set("content-type", "application/json")
-
-	//Send back data as response
-	w.Write(jsonString)
-
+	return count
 }

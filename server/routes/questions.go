@@ -7,8 +7,8 @@ import (
 
 func SetQuestionsRouters(router *mux.Router) *mux.Router {
 
-	router.HandleFunc("/jobs", controllers.JobsGetHandler).Methods("GET")
-	router.HandleFunc("/api/add", controllers.Add).Methods("GET")
+	router.HandleFunc("/api/questions/create", controllers.CreateQuestion).Methods("POST")
+	router.HandleFunc("/api/questions/answers", controllers.AnswerQuestion).Methods("POST")
 
 	return router
 }
