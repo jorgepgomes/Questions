@@ -95,7 +95,8 @@ func Like(w http.ResponseWriter, r *http.Request) {
 func findQuestions(search string) []model.Questions {
 	col := mongoStore.session.DB(model.Cfg.Server.MongoDB.Database).C(model.Cfg.Server.MongoDB.Collection)
 	results := []model.Questions{}
-	err := col.Find(bson.M{"text": bson.RegEx{search, ""}}).All(&results)
+	query := bson.M{"text": bson.M{"$regex": bson.RegEx{Pattern: search, Options: "im"}}}
+	err := col.Find(query).All(&results)
 	if err != nil {
 		return nil
 	}

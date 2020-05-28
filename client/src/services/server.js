@@ -6,14 +6,14 @@ class Server {
     this.request = new Request(config.client.url.server);
   }
 
-  createQuestion = (data) => {
+  CreateQuestion = (data) => {
     return this.request.post("/api/questions/create", data);
   }
   AnswerQuestion = (data) => {
     return this.request.post("/api/questions/answers", data)
   }
-  ListQuestions = () => {
-    return this.request.get("/api/questions")
+  ListQuestions = (data) => {
+    return this.request.get(`/api/questions?search=${data}`)
   }
   Like = (data) => {
     return this.request.post("/api/react", data)
