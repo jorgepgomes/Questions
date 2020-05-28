@@ -1,7 +1,6 @@
 package nosql
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/jorgepgomes/Questions/server/model"
@@ -11,7 +10,6 @@ import (
 func InitialiseMongo() (session *mgo.Session) {
 
 	config := model.Cfg
-	fmt.Println(">>> ", config)
 	mongo := config.Server.MongoDB
 
 	info := &mgo.DialInfo{
