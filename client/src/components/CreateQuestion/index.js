@@ -21,21 +21,21 @@ function CreateQuestion({ onSubmit }) {
             <strong>Fazer uma Pergunta</strong>
             <form onSubmit={handleSubmit}>
                 <div className="input-block">
-                    <label>Pergunta</label>
-                    <input
-                        name="text"
-                        value={text}
-                        type="text"
-                        onChange={e => setText(e.target.value)}
-                    />
-                </div>
-                <div className="input-block">
                     <label>User</label>
                     <input
                         name="use"
                         value={user}
                         type="text"
                         onChange={e => setUser(e.target.value)}
+                    />
+                </div>
+                <div className="input-block">
+                    <label>Pergunta</label>
+                    <input
+                        name="text"
+                        value={text}
+                        type="text"
+                        onChange={e => setText(e.target.value)}
                     />
                 </div>
                 <button type="submit">Criar</button>

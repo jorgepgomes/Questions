@@ -3,6 +3,7 @@ import server from '../../services/server'
 import Search from '../../components/Search'
 import ListQuestion from '../../components/ListQuestion'
 import CreateQuestion from '../../components/CreateQuestion'
+import './style.css'
 
 export default function Home() {
     const [list, setList] = useState([]);
@@ -42,10 +43,10 @@ export default function Home() {
 
     return (
         <>
-            <div className="question">
+            <div className="form-question">
                 <CreateQuestion onSubmit={create} />
             </div>
-            <div>
+            <div className="list-question">
                 <Search onSubmit={searchListQuestions} />
                 <ListQuestion data={list} />
             </div>

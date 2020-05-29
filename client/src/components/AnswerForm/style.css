@@ -1,35 +1,29 @@
-.form-question{
-    width: 500px;
+.form-answer{
+    width: 100%;
     background: #FFF;
     box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.02);
     border-radius: 2px;
-    padding: 30px 20px;
-}
-
-.form-question strong {
-    font-size: 20px;
-    text-align: center;
-    display: block;
-    color: #3c3c3c;
-}
-
-.form-question form {
+    padding: 20px 20px;
     margin-top: 30px;
 }
 
-.form-question form .input-block + .input-block {
+.form-answer form {
+    margin-top: 0px;
+}
+
+.form-answer form .input-block + .input-block {
     margin-top: 20px;
 }
 
 
-.form-question form .input-block label {
+.form-answer form .input-block label {
     color: #a6a6a6;
     font-size: 14px;
     font-weight: bold;
     display: block;
 }
 
-.form-question form .input-block input {
+.form-answer form .input-block input {
     width: 100%;
     height: 32px;
     font-size: 14px;
@@ -38,13 +32,13 @@
     border-bottom: 1px solid #cccccc;
 }
 
-.form-question form button[type=submit] {
+.form-answer form button[type=submit] {
     width: 100%;
     border: 0;
-    margin-top: 30px;
+    margin-top: 20px;
     background: #71DF95;
     border-radius: 2px;
-    padding: 15px 20px;
+    padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
     color: #fff;
@@ -52,6 +46,6 @@
     transition: background 0.5s;
 }
 
-.form-question form button[type=submit]:hover{
+.form-answer form button[type=submit]:hover{
     background:#2abb5b;
 }

@@ -1,5 +1,5 @@
 
-ul.item {
+ul.answer {
     background: #FFF;
     box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.02);
     border-radius: 2px;
@@ -7,23 +7,23 @@ ul.item {
     margin-top: 10px;
 }
 
-ul.item:hover{
-    cursor: pointer;
-}
-
-ul.item strong {
+ul.answer strong {
     display: block;
     font-size: 16px;
     color: #333;
     margin-bottom: 7px;
 }
 
-ul.item div{
+ul.answer div{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
-ul.item div span {
+ul.answer div span {
     font-size: 13px;
     color: #999;
+}
+
+.like {
+    margin-right: 30px;
 }

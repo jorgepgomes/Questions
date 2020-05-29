@@ -11,6 +11,7 @@ func SetQuestionsRouters(router *mux.Router) *mux.Router {
 	router.HandleFunc("/api/questions/answers", controllers.AnswerQuestion).Methods("POST")
 	router.HandleFunc("/api/questions", controllers.ListQuestions).Methods("GET")
 	router.HandleFunc("/api/react", controllers.Like).Methods("POST")
+	router.HandleFunc("/api/questions/details", controllers.DetailsQuestion).Methods("GET")
 
 	return router
 }

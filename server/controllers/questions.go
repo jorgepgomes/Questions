@@ -73,6 +73,16 @@ func ListQuestions(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(model.ToJson(result)))
 }
 
+func DetailsQuestion(w http.ResponseWriter, r *http.Request) {
+	setupResponse(&w, r)
+	id := getIDParams(r)
+
+	result := findOneQuestion(id)
+
+	w.WriteHeader(200)
+	w.Write([]byte(model.ToJson(result)))
+}
+
 func Like(w http.ResponseWriter, r *http.Request) {
 	setupResponse(&w, r)
 	body := getBody(r)

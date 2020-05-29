@@ -18,6 +18,10 @@ class Server {
   Like = (data) => {
     return this.request.post("/api/react", data)
   }
+
+  DetailsQuestion = (data) => {
+    return this.request.get(`/api/questions/details?id=${data}`)
+  }
 }
 
 export default new Server();

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import moment from 'moment'
+import "./style.css"
 
 function ListQuestion({ data }) {
 
@@ -31,15 +32,13 @@ function ListQuestion({ data }) {
     return (
         <>
             {list.map(item => (
-                <ul key={item.id} className="" onClick={() => nav(item.id)}>
-                    <div className="">
+                <ul key={item.id} className="item" onClick={() => nav(item.id)}>
                         <strong>{item.text}</strong>
                         <div>
-                            <span>data: {moment.unix(item.date / 1000).utc().format('DD-MM-YYYY')}</span>
-                            <span>respostas: {item.answers}</span>
-                            <span>likes: {item.likes}</span>
+                            <span>respostas {item.answers}</span>
+                            <span>likes {item.likes}</span>
+                            <span>{moment.unix(item.date / 1000).utc().format('DD-MM-YYYY')}</span>
                         </div>
-                    </div>
                 </ul>
             ))}
         </>
