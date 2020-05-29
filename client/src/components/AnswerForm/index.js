@@ -8,9 +8,7 @@ function AnswerForm({ onSubmit }) {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            let res = await onSubmit({ text, user })
-            console.log("create user: ", res)
-
+            await onSubmit({ text, user })            
         } catch (err) {
             console.log(err)
         }
@@ -30,7 +28,7 @@ function AnswerForm({ onSubmit }) {
                         />
                     </div>
                     <div className="input-block">
-                        <label>Pergunta</label>
+                        <label>Resposta</label>
                         <input
                             name="text"
                             value={text}

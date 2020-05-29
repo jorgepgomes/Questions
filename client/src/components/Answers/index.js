@@ -9,7 +9,6 @@ function Answers({ data }) {
     useEffect(() => {
         if (!data) return
         setList(data)
-        list.map(item => (console.log(item)))
     }, [list, data])
 
     return (

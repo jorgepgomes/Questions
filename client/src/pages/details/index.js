@@ -14,7 +14,7 @@ export default function Details() {
     useEffect(() => {
         function getId() {
             let id = pathname.replace("/", "")
-            return id
+            return id   
         }
 
         async function getData(id) {
@@ -35,8 +35,29 @@ export default function Details() {
         window.location.href = `/`;
     }
 
-    async function AnswerQuestion() {
+    function getId() {
+        let id = pathname.replace("/", "")
+        return id
+    }
 
+    async function getData(id) {
+        try {
+            let result = await server.DetailsQuestion(id)
+            setQuestion(result.data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    async function AnswerQuestion(data) {
+        try {
+            let id = getId()
+            let res = await server.AnswerQuestion(id, data)
+            console.log(res)
+            getData(id)
+        } catch (err) {
+            console.log("err ", err)
+        }
     }
 
     return (

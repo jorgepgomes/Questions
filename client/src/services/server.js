@@ -9,8 +9,8 @@ class Server {
   CreateQuestion = (data) => {
     return this.request.post("/api/questions/create", data);
   }
-  AnswerQuestion = (data) => {
-    return this.request.post("/api/questions/answers", data)
+  AnswerQuestion = (id, data) => {
+    return this.request.post(`/api/questions/answers?id=${id}`, data)
   }
   ListQuestions = (data) => {
     return this.request.get(`/api/questions?search=${data}`)
