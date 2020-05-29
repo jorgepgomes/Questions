@@ -17,7 +17,6 @@ var mongoStore = MongoStore{}
 func InitMongo() {
 
 	model.ReadConfig()
-
 	fmt.Println("Init MongoDB")
 	session := nosql.InitialiseMongo()
 	mongoStore.session = session

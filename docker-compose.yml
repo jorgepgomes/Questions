@@ -19,11 +19,12 @@ services:
         build: ./server/
         ports:
           - "3050:3050" 
-        restart: unless-stopped    
+        restart: always    
         
     client:
         build: ./client/
-        command: npm start
+        command: yarn start
+        tty: true
         volumes:
             - ./client/:/usr/app
             - /usr/app/node_modules

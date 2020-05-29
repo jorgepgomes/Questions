@@ -25,6 +25,6 @@ func InitialiseMongo() (session *mgo.Session) {
 		panic(err)
 	}
 
-	return
+	return session
 
 }

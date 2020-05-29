@@ -2,7 +2,7 @@
     "server": {
         "port": "3050",
         "mongodb": {
-          "hosts": "localhost:27017",
+          "hosts": "mongo:27017",
           "database": "db",
           "username": "",
           "password": "",
