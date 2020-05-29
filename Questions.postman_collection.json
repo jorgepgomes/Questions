@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "32587bf2-7dd5-4b8c-8a61-cc506b995157",
+		"name": "Questions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Question",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"text\": \"My Question\",\n  \"user\": \"username\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3050/api/questions/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3050",
+					"path": [
+						"api",
+						"questions",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Answer Question",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"text\": \"My answer\",\n  \"user\": \"username\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3050/api/questions/answers?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3050",
+					"path": [
+						"api",
+						"questions",
+						"answers"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Questions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3050/api/questions?search=My",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3050",
+					"path": [
+						"api",
+						"questions"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "My"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Like a Question Or Answer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id_question\": 1,\n    \"id_answer\": 1,\n    \"local\": \"question\",\n    \"like\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3050/api/react",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3050",
+					"path": [
+						"api",
+						"react"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Details Question",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3050/api/questions/details?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3050",
+					"path": [
+						"api",
+						"questions",
+						"details"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
