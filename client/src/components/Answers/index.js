@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import moment from 'moment'
 import "./style.css"
 
-function Answers({ data }) {
+function Answers({ data, reactionAnswer }) {
 
     const [list, setList] = useState([])
 
@@ -17,8 +17,10 @@ function Answers({ data }) {
                 <ul key={item.Id} className="answer">
                     <strong>{item.Text}</strong>
                     <div>
-                        <span className="like">likes {item.Likes}</span>
-                        <span>{moment.unix(item.Date / 1000).utc().format('DD-MM-YYYY')}</span>
+                        <span className="show">likes {item.Likes}</span>
+                        <span className="show">{moment.unix(item.Date / 1000).utc().format('DD-MM-YYYY')}</span>
+                        <strong className="action" onClick={() => {reactionAnswer(item.Id, "answer", 1)}}>Like</strong>
+                        <strong className="action" onClick={() => {reactionAnswer(item.Id, "answer", -1 )}}>Dislike</strong>
                     </div>
                 </ul>
             ))}

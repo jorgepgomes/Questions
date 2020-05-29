@@ -14,7 +14,7 @@ export default function Details() {
     useEffect(() => {
         function getId() {
             let id = pathname.replace("/", "")
-            return id   
+            return id
         }
 
         async function getData(id) {
@@ -60,15 +60,37 @@ export default function Details() {
         }
     }
 
+    async function likeOrDislike(answerId, type, value) {
+        try {
+            let id = getId()
+            let body = {
+                id_question: parseInt(id),
+                id_answer: answerId,
+                local: type,
+                like: value
+            }
+            let res = await server.Like(body)
+            console.log(res)
+            getData(id)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
         <>
             <div className="details">
                 <button type="button" onClick={goBack} className="buttonBack">voltar</button>
                 <div className="question">
                     <strong>{question.Text}</strong>
+                    <div className="react-answer">
+                        <strong className="action" style={{marginRight: "10px"}}>likes {question.Likes}</strong>
+                        <strong className="action" onClick={() => likeOrDislike(0, "question", 1)}>Like</strong>
+                        <strong className="action" onClick={() => likeOrDislike(0, "question", -1)}>Dislike</strong>
+                    </div>
                 </div>
                 <div>
-                    <Answers data={question.Answers} />
+                    <Answers data={question.Answers} reactionAnswer={likeOrDislike} />
                 </div>
                 <div>
                     <AnswerForm onSubmit={AnswerQuestion} />
