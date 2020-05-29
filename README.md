@@ -20,6 +20,10 @@ Tecnologias:
  Start
  ```
  docker-compose up --build
+
+ client - http://localhost:3000/
+ server - http://localhost:3050/
+ mongodb - http://localhost:8081/
  ```
  Run
  ```
