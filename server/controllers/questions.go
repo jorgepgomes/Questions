@@ -19,7 +19,7 @@ func setupResponse(w *http.ResponseWriter, r *http.Request) {
 }
 
 func CreateQuestion(w http.ResponseWriter, r *http.Request) {
-	// setupResponse(&w, r)
+	setupResponse(&w, r)
 	body := getBody(r)
 
 	count := totalQuestions()
@@ -40,7 +40,7 @@ func CreateQuestion(w http.ResponseWriter, r *http.Request) {
 }
 
 func AnswerQuestion(w http.ResponseWriter, r *http.Request) {
-	// setupResponse(&w, r)
+	setupResponse(&w, r)
 	body := getBody(r)
 	id := getIDParams(r)
 	question := findOneQuestion(id)
@@ -74,7 +74,7 @@ func ListQuestions(w http.ResponseWriter, r *http.Request) {
 }
 
 func Like(w http.ResponseWriter, r *http.Request) {
-	// setupResponse(&w, r)
+	setupResponse(&w, r)
 	body := getBody(r)
 
 	var like model.Like

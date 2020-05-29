@@ -9,7 +9,7 @@ function Search({ onSubmit }) {
     }
     return (
         <form onSubmit={handleSubmit}>
-            <div className="input-block">
+            <div className="">
                 <input
                     name="search"
                     value={search}
